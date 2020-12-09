@@ -42,7 +42,7 @@ class DetailActivity: AppCompatActivity() {
 
     private fun fetchJSON() {
         val vId = intent.getIntExtra(CustomViewHolder.VIDEO_ID_KEY,-1)
-        val url = "https://api.letsbuildthatapp.com/youtube/course_detail?id="+vId
+        val url = "http://192.168.0.150:8090/demo/videos/id?id="+vId
         val request = Request.Builder().url(url).build()
 
         val client = OkHttpClient()
@@ -54,8 +54,6 @@ class DetailActivity: AppCompatActivity() {
                 val body = response.body?.string()
                 val gson = GsonBuilder().create()
                 val secondFeeds = gson.fromJson(body,Array<SecondFeed>::class.java)
-
-
                 runOnUiThread{
                     recyclerView.adapter = DetailAdapter(secondFeeds)
                 }

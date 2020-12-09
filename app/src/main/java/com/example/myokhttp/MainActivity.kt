@@ -23,10 +23,8 @@ class MainActivity : AppCompatActivity() {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
-
             // use a linear layout manager
             layoutManager = viewManager
-
         }
 
         fetchJSON()
@@ -34,10 +32,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchJSON() {
-        //val url = "http://192.168.0.150:8090/demo/users"
-        val url = "https://api.letsbuildthatapp.com/youtube/home_feed"
+        val url = "http://192.168.0.150:8090/demo/videos"
         val request = Request.Builder().url(url).build()
-
         val client = OkHttpClient()
         client.newCall(request).enqueue(object:Callback{
             override fun onFailure(call: Call, e: IOException) {
@@ -46,12 +42,11 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body?.string()
                 val gson = GsonBuilder().create()
-                val homeFeed = gson.fromJson(body,HomeFeed::class.java)
 
+                val homeFeed = gson.fromJson(body,HomeFeed::class.java)
                 runOnUiThread {
                     recyclerView.adapter = MyAdapter(homeFeed)
                 }
-
             }
 
         })

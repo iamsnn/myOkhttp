@@ -17,12 +17,12 @@ class MyAdapter(val homeFeed: HomeFeed):
     override fun getItemCount():Int{
         return homeFeed.videos.size
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val cellFromRow = layoutInflater.inflate(R.layout.video_row,parent,false)
         return CustomViewHolder(cellFromRow)
     }
+
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val video = homeFeed.videos.get(position)
 
@@ -39,7 +39,6 @@ class MyAdapter(val homeFeed: HomeFeed):
         holder?.video = video
     }
 }
-
 // add interactive functions
 class CustomViewHolder(val view:View,var video:Video?=null): RecyclerView.ViewHolder(view) {
 
@@ -47,14 +46,10 @@ class CustomViewHolder(val view:View,var video:Video?=null): RecyclerView.ViewHo
         val VIDEO_TITLE_KEY =  "VIDEO_TITLE"
         val VIDEO_ID_KEY = "VIDEO_ID"
     }
-
-
     init {
-
         view.setOnClickListener {
 
             val intent = Intent(view.context,DetailActivity::class.java)
-
             //pass content
             intent.putExtra(VIDEO_TITLE_KEY,video?.name)
             intent.putExtra(VIDEO_ID_KEY,video?.id)
